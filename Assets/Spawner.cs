@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public int RareChance = 10;
     public GameObject CoinPrefab;
+    public GameObject RareCoinPrefab;
     public Vector2 MinMaxPos;
     public float SpawnInterval = 0.5f;
     private bool isSpawning = false;
@@ -24,13 +26,30 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        if(CoinPrefab)
+        int currentChange = Random.Range(0, 100);
+        if (currentChange > RareChance)
         {
-            Vector3 randomSpawnPos = new Vector3(
-                Random.Range(MinMaxPos.x,MinMaxPos.y),
-                transform.position.y,
-                transform.position.z);
-            GameObject.Instantiate(CoinPrefab,randomSpawnPos,Quaternion.identity);
+
+            if (CoinPrefab)
+            {
+                Vector3 randomSpawnPos = new Vector3(
+                    Random.Range(MinMaxPos.x, MinMaxPos.y),
+                    transform.position.y,
+                    transform.position.z);
+                GameObject.Instantiate(CoinPrefab, randomSpawnPos, Quaternion.identity);
+            }
+        }
+
+        else
+        {
+            if (RareCoinPrefab)
+            {
+                Vector3 randomSpawnPos = new Vector3(
+                    Random.Range(MinMaxPos.x, MinMaxPos.y),
+                    transform.position.y,
+                    transform.position.z);
+                GameObject.Instantiate(RareCoinPrefab, randomSpawnPos, Quaternion.identity);
+            }
         }
         
         
